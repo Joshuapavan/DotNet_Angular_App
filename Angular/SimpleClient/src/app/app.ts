@@ -17,7 +17,7 @@ export class App implements OnInit{
   users: any;
 
   ngOnInit(): void {
-    this.http.get('http://localhost:5008/api/v1/users/').subscribe({
+    this.http.get('http://localhost:5000/api/v1/users/').subscribe({
       next: response => this.users = response,
       error: error =>  console.log("Error : "+ error),
       complete: () => console.log("Completed the API call")
