@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimpleAPI.Data;
 using SimpleAPI.Entities;
 
@@ -18,9 +19,20 @@ namespace SimpleAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<User>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
-            return Ok(_context.Users.ToList());    
+            return Ok(await _context.Users.ToListAsync());
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<ActionResult<User>> GetUserById(int id)
+        {
+            var User = await _context.Users.FindAsync(id);
+
+            if (User == null) return NotFound();
+
+            return Ok(User);
         }
 
 
