@@ -6,8 +6,8 @@ public class LoginDto
 {
     [Required]
     [MaxLength(20)]
-    public required String username { get; set; }
+    public required String Username { get; set; }
     [Required]
-    public required String password { get; set; }
+    public required String Password { get; set; }
 
 }

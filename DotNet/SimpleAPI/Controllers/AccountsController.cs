@@ -5,14 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using SimpleAPI.Data;
 using SimpleAPI.DTO;
 using SimpleAPI.Entities;
+using SimpleAPI.Interfaces;
 
 namespace SimpleAPI.Controllers;
 
-public class AccountsController(AppDbContext context) : BaseApiController
+public class AccountsController(AppDbContext context, ITokenService tokenService) : BaseApiController
 {
 
     [HttpPost("register")]
-    public async Task<ActionResult<User>> RegisterUser(RegisterDto registerDto)
+    public async Task<ActionResult<UserDto>> RegisterUser(RegisterDto registerDto)
     {
         if (await UserExists(registerDto)) return BadRequest("User Already Exists");
 
@@ -20,28 +21,32 @@ public class AccountsController(AppDbContext context) : BaseApiController
 
         var user = new User
         {
-            UserName = registerDto.username,
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.password)),
+            UserName = registerDto.Username,
+            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
             PasswordSalt = hmac.Key
         };
 
         context.Users.Add(user);
         await context.SaveChangesAsync();
 
-        return user;
+        return new UserDto
+        {
+            Username = user.UserName,
+            Token = tokenService.CreateToken(user)
+        };
     }
 
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> LoginUser(LoginDto loginDto)
     {
         var user = await context.Users.FirstOrDefaultAsync(
-            x => x.UserName.ToLower() == loginDto.username.ToLower()
+            x => x.UserName.ToLower() == loginDto.Username.ToLower()
         );
 
         if (user == null) return Unauthorized("Invalid UserName");
 
         var hmac = new HMACSHA512(user.PasswordSalt);
-        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password));
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
         for (int i = 0; i < computedHash.Length; i++)
         {
@@ -53,14 +58,14 @@ public class AccountsController(AppDbContext context) : BaseApiController
 
         return new UserDto
         {
-            username = user.UserName,
-            Token = user.UserName
+            Username = user.UserName,
+            Token = tokenService.CreateToken(user)
         };
     }
 
 
     private async Task<bool> UserExists(RegisterDto registerDto)
     {
-        return await context.Users.AnyAsync(x => x.UserName == registerDto.username);
+        return await context.Users.AnyAsync(x => x.UserName.ToLower() == registerDto.Username.ToLower());
     }
 }

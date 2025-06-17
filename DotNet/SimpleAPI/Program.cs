@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleAPI.Data;
+using SimpleAPI.Interfaces;
+using SimpleAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,9 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data S
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
+
+// Adding our own services
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 
 var app = builder.Build();

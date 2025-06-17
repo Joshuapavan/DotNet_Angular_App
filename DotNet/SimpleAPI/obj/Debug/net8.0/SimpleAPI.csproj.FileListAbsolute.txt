@@ -158,3 +158,8 @@
 /Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/obj/Debug/net8.0/SimpleAPI.sourcelink.json
+/Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
