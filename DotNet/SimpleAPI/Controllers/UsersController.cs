@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleAPI.Data;
@@ -16,6 +17,7 @@ public class UsersController : BaseApiController
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
     {
         return Ok(await _context.Users.ToListAsync());
@@ -23,6 +25,7 @@ public class UsersController : BaseApiController
 
     [HttpGet]
     [Route("{id:int}")]
+    [Authorize]
     public async Task<ActionResult<User>> GetUserById(int id)
     {
         var User = await _context.Users.FindAsync(id);
