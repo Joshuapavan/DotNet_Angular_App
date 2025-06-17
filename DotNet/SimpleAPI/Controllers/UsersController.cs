@@ -3,38 +3,34 @@ using Microsoft.EntityFrameworkCore;
 using SimpleAPI.Data;
 using SimpleAPI.Entities;
 
-namespace SimpleAPI.Controllers
+namespace SimpleAPI.Controllers;
+
+public class UsersController : BaseApiController
 {
-    [ApiController]
-    [Route("api/v1/users")]
-    public class UsersController : ControllerBase
+    // Dependency Injection
+    private readonly AppDbContext _context;
+
+    public UsersController(AppDbContext context)
     {
-
-        // Dependency Injection
-        private readonly AppDbContext _context;
-
-        public UsersController(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
-        {
-            return Ok(await _context.Users.ToListAsync());
-        }
-
-        [HttpGet]
-        [Route("{id:int}")]
-        public async Task<ActionResult<User>> GetUserById(int id)
-        {
-            var User = await _context.Users.FindAsync(id);
-
-            if (User == null) return NotFound();
-
-            return Ok(User);
-        }
-
-
+        _context = context;
     }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+    {
+        return Ok(await _context.Users.ToListAsync());
+    }
+
+    [HttpGet]
+    [Route("{id:int}")]
+    public async Task<ActionResult<User>> GetUserById(int id)
+    {
+        var User = await _context.Users.FindAsync(id);
+
+        if (User == null) return NotFound();
+
+        return Ok(User);
+    }
+
+
 }

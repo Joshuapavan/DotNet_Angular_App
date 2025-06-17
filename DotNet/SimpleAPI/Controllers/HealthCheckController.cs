@@ -1,16 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace SimpleAPI.Controllers{
+namespace SimpleAPI.Controllers;
 
-    [ApiController]
-    [Route("api/[controller]")]
-    public class HealthCheckController : ControllerBase
+public class HealthCheckController : BaseApiController
+{
+    [HttpGet]
+    public IActionResult Get()
     {
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(new { message = "The Server is up and running"});
-        }
-
+        return Ok(new { message = "The Server is up and running"});
     }
+
 }
