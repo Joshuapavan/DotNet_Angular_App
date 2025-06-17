@@ -1,10 +1,10 @@
-import { NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
+import { Nav } from "./components/nav/nav";
 
 @Component({
   selector: 'app-root',
-  imports: [NgFor],
+  imports: [Nav],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -17,7 +17,7 @@ export class App implements OnInit{
   users: any;
 
   ngOnInit(): void {
-    this.http.get('http://localhost:5000/api/v1/users/').subscribe({
+    this.http.get('http://localhost:5000/api/users/').subscribe({
       next: response => this.users = response,
       error: error =>  console.log("Error : "+ error),
       complete: () => console.log("Completed the API call")
