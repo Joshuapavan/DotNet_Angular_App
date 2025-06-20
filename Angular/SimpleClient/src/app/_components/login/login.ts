@@ -28,7 +28,7 @@ export class Login {
       },
       error: (error) => {
         if (Array.isArray(error)) {
-          this.toastr.error('Error while Signing up.');
+          this.toastr.error('Error while Logging in.');
           this.validationErrors = error;
         }
         this.loggedIn = false;
