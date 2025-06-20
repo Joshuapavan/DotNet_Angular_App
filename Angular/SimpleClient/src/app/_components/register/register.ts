@@ -17,6 +17,8 @@ export class Register {
 
   cancelRegister = output<boolean>();
 
+  validationErrors: Array<String> = [];
+
   model: any = {};
 
   register() {
@@ -25,7 +27,12 @@ export class Register {
         this.toastr.success('Welcome ,' + response.username);
         this.cancel();
       },
-      error: (error) => this.toastr.error(error.error),
+      error: (error) => {
+        if (Array.isArray(error)) {
+          this.toastr.error('Error while Signing up.');
+          this.validationErrors = error;
+        }
+      },
     });
   }
 

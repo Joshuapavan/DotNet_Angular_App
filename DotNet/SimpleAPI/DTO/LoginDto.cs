@@ -5,9 +5,8 @@ namespace SimpleAPI.DTO;
 public class LoginDto
 {
     [Required]
-    [MaxLength(20)]
-    public required String Username { get; set; }
+    public String Username { get; set; } = string.Empty;
     [Required]
-    public required String Password { get; set; }
+    public String Password { get; set; } = string.Empty;
 
 }

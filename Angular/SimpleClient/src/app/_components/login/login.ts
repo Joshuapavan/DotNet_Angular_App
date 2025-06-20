@@ -15,6 +15,8 @@ export class Login {
   private router = inject(Router);
   private toastr = inject(ToastrService);
 
+  validationErrors: Array<String> = [];
+
   loggedIn = false;
   model: any = {};
 
@@ -25,7 +27,10 @@ export class Login {
         this.router.navigateByUrl('/home');
       },
       error: (error) => {
-        this.toastr.error(error.error);
+        if (Array.isArray(error)) {
+          this.toastr.error('Error while Signing up.');
+          this.validationErrors = error;
+        }
         this.loggedIn = false;
       },
     });
