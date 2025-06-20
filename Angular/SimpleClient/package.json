@@ -18,6 +18,7 @@
     "@angular/platform-browser": "^20.0.3",
     "@angular/router": "^20.0.0",
     "bootstrap": "^5.3.6",
+    "bootswatch": "^5.3.6",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^19.0.2",
     "ngx-toastr": "^19.0.0",

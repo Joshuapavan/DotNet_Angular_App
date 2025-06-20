@@ -33,7 +33,6 @@ export class Home implements OnInit {
     this.http.get('http://localhost:5000/api/users/').subscribe({
       next: (response) => (this.users = response),
       error: (error) => console.log('Error : ' + error),
-      complete: () => console.log('Completed the API call'),
     });
   }
 }

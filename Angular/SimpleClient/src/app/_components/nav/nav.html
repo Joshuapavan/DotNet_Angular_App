@@ -1,24 +1,24 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
   <div class="container">
     <a class="navbar-brand" routerLink="/">Dating App</a>
 
     <ul class="navbar-nav me-auto mb-2 mb-md-0">
       @if(accountService.currentUser()){
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/members" routerLinkActive="active"
-            >Matches</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/lists" routerLinkActive="active"
-            >Lists</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/messages" routerLinkActive="active"
-            >Messages</a
-          >
-        </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/members" routerLinkActive="active"
+          >Matches</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/lists" routerLinkActive="active"
+          >Lists</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/messages" routerLinkActive="active"
+          >Messages</a
+        >
+      </li>
       }
     </ul>
     @if(!accountService.currentUser()){
@@ -31,24 +31,24 @@
       <input
         name="username"
         [(ngModel)]="model.username"
-        class="form-control me-2"
+        class="form-control me-2 rounded"
         type="text"
         placeholder="Username"
       />
       <input
         name="password"
         [(ngModel)]="model.password"
-        class="form-control me-2"
+        class="form-control me-2 rounded"
         type="password"
         placeholder="Password"
       />
 
-      <button class="btn btn-outline-success" type="submit">Login</button>
+      <button class="btn btn-primary" type="submit">Login</button>
     </form>
     } @if(accountService.currentUser()){
     <div dropdown class="dropdown">
       <a dropdownToggle class="dropdown-toggle text-light text-decoration-none"
-        >Welcome, {{accountService.currentUser()?.username}}</a
+        >{{accountService.currentUser()?.username |titlecase }}</a
       >
       <div *dropdownMenu class="dropdown-menu">
         <a class="dropdown-item">Edit profile</a>
