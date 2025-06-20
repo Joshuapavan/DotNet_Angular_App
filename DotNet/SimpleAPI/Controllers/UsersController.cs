@@ -1,37 +1,37 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SimpleAPI.Data;
+using SimpleAPI.DTO;
 using SimpleAPI.Entities;
+using SimpleAPI.Interfaces;
 
 namespace SimpleAPI.Controllers;
 
-public class UsersController : BaseApiController
+[Authorize]
+public class UsersController(IUserRepository userRepository, IMapper mapper) : BaseApiController
 {
-    // Dependency Injection
-    private readonly AppDbContext _context;
-
-    public UsersController(AppDbContext context)
-    {
-        _context = context;
-    }
 
     [HttpGet]
-    [AllowAnonymous]
-    public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAllUsers()
     {
-        return Ok(await _context.Users.ToListAsync());
+        var users = await userRepository.GetMembersAsync();
+        return Ok(users);
     }
 
-    [HttpGet]
-    [Route("{id:int}")]
-    [Authorize]
-    public async Task<ActionResult<User>> GetUserById(int id)
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<MemberDto>> GetUserById(int id)
     {
-        var User = await _context.Users.FindAsync(id);
+        var User = await userRepository.GetMemberByIdAsync(id);
 
         if (User == null) return NotFound();
 
+        return Ok(mapper.Map<MemberDto>(User));
+    }
+
+    [HttpGet("{username}")]
+    public async Task<ActionResult<MemberDto>> GetUserByUsername(string username)
+    {
+        var User = await userRepository.GetMemberByUserNameAsync(username);
         return Ok(User);
     }
 

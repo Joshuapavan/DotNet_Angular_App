@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "X6nQqfZKbOo=",
+  "dgSpecHash": "m6+pkU6MGO4=",
   "success": true,
   "projectFilePath": "/Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/SimpleAPI.csproj",
   "expectedPackageFiles": [
+    "/Users/joshua/.nuget/packages/automapper/14.0.0/automapper.14.0.0.nupkg.sha512",
     "/Users/joshua/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/joshua/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.17/microsoft.aspnetcore.authentication.jwtbearer.8.0.17.nupkg.sha512",
     "/Users/joshua/.nuget/packages/microsoft.aspnetcore.openapi/8.0.17/microsoft.aspnetcore.openapi.8.0.17.nupkg.sha512",

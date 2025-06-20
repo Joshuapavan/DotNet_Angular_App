@@ -166,3 +166,5 @@
 /Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
 /Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
 /Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/Data/UserSeedData.json
+/Users/joshua/Desktop/Josh/Angular And DotNet/DotNet/SimpleAPI/bin/Debug/net8.0/AutoMapper.dll
