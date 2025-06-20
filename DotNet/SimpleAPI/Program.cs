@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SimpleAPI.Data;
 using SimpleAPI.Interfaces;
+using SimpleAPI.Middlewares;
 using SimpleAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +41,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 // MiddleWares
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 

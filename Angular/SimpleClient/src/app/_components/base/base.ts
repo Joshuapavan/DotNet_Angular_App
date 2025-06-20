@@ -15,11 +15,9 @@ export class Base implements OnInit {
 
   ngOnInit(): void {
     if (!this.accountService.currentUser()) {
-      this.navigateToLogin();
+      this.router.navigateByUrl('/login');
+    } else {
+      this.router.navigateByUrl('/home');
     }
-  }
-
-  navigateToLogin() {
-    this.router.navigateByUrl('/login');
   }
 }

@@ -8,12 +8,18 @@ import { Messages } from './_components/messages/messages';
 import { authGuard } from './_gaurds/auth-guard';
 import { Login } from './_components/login/login';
 import { Base } from './_components/base/base';
+import { TestErrors } from './_components/test-errors/test-errors';
+import { NotFound } from './_components/not-found/not-found';
+import { ServerError } from './_components/server-error/server-error';
 
 export const routes: Routes = [
   { path: '', component: Base },
   { path: 'register', component: Register },
   { path: 'login', component: Login },
   { path: 'home', component: Home },
+  { path: 'errors', component: TestErrors },
+  { path: 'not-found', component: NotFound },
+  { path: 'server-error', component: ServerError },
   {
     path: '',
     runGuardsAndResolvers: 'always',

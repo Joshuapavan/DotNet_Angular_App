@@ -1,0 +1,30 @@
+<div class="mb-2">
+  Click on the various types of error buttons to test the error handeling.
+</div>
+<div class="mt-4">
+  <button class="btn btn-outline-primary me-3" (click)="get400Error()">
+    400
+  </button>
+  <button class="btn btn-outline-primary me-3" (click)="get401Error()">
+    401
+  </button>
+  <button class="btn btn-outline-primary me-3" (click)="get404Error()">
+    404
+  </button>
+  <button class="btn btn-outline-primary me-3" (click)="get500Error()">
+    500
+  </button>
+  <button class="btn btn-outline-primary me-3" (click)="getValidationError()">
+    Validation Error
+  </button>
+
+  @if(validationErrors.length > 0){
+    <div class="row mt-5">
+      <ul class="text-danger">
+        @for (error of validationErrors; track $index) {
+          <li>{{error}}</li>
+        }
+      </ul>
+    </div>
+  }
+</div>

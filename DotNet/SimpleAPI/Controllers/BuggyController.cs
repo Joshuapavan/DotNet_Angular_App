@@ -5,10 +5,10 @@ using SimpleAPI.Entities;
 
 namespace SimpleAPI.Controllers;
 
-[Authorize]
 public class BuggyController(AppDbContext context) : BaseApiController
 {
 
+    [Authorize]
     [HttpGet("auth")]
     public ActionResult<string> GetAuth()
     {
