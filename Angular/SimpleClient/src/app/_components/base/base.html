@@ -1,0 +1,10 @@
+@if(accountService.currentUser()){
+<app-nav></app-nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+} @else {
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+}

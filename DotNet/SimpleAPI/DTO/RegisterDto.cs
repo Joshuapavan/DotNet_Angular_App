@@ -4,8 +4,10 @@ namespace SimpleAPI.DTO;
 
 public class RegisterDto
 {
-    [Required] [MaxLength(20)]
-    public required String Username { get; set; }
     [Required]
-    public required String Password { get; set; }
+    [MaxLength(20)]
+    public String Username { get; set; } = string.Empty;
+    [Required]
+    [StringLength(8, MinimumLength = 4)]
+    public String Password { get; set; } = string.Empty;
 }

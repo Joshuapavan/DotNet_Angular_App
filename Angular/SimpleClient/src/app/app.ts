@@ -1,12 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Nav } from './_components/nav/nav';
 import { Account } from './_services/account';
-import { Home } from './_components/home/home';
-import { RouterOutlet } from '@angular/router';
+import { Base } from "./_components/base/base";
 
 @Component({
   selector: 'app-root',
-  imports: [Nav, RouterOutlet],
+  imports: [Base],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

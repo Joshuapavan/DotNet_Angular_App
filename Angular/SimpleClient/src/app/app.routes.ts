@@ -6,10 +6,14 @@ import { MemberDetail } from './_components/members/member-detail/member-detail'
 import { Lists } from './_components/lists/lists';
 import { Messages } from './_components/messages/messages';
 import { authGuard } from './_gaurds/auth-guard';
+import { Login } from './_components/login/login';
+import { Base } from './_components/base/base';
 
 export const routes: Routes = [
-  { path: '', component: Home },
+  { path: '', component: Base },
   { path: 'register', component: Register },
+  { path: 'login', component: Login },
+  { path: 'home', component: Home },
   {
     path: '',
     runGuardsAndResolvers: 'always',

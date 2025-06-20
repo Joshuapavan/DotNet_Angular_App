@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Register } from '../register/register';
 import { Account } from '../../_services/account';
 import { HttpClient } from '@angular/common/http';
+import { Nav } from '../nav/nav';
 
 @Component({
   selector: 'app-home',
