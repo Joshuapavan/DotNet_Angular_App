@@ -13,31 +13,14 @@ export class MemberService {
   baseUrl = environment.apiUrl;
 
   getMembers() {
-    return this.http.get<Member[]>(
-      this.baseUrl + '/users',
-      this.getHttpOptions()
-    );
+    return this.http.get<Member[]>(this.baseUrl + '/users');
   }
 
   getMembersByUserName(username: string) {
-    return this.http.get<Member>(
-      this.baseUrl + `/users/${username}`,
-      this.getHttpOptions()
-    );
+    return this.http.get<Member>(this.baseUrl + `/users/${username}`);
   }
 
   getMembersById(id: number) {
-    return this.http.get<Member>(
-      this.baseUrl + `/users/${id}`,
-      this.getHttpOptions()
-    );
-  }
-
-  getHttpOptions() {
-    return {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.accountService.currentUser()?.token}`,
-      }),
-    };
+    return this.http.get<Member>(this.baseUrl + `/users/${id}`);
   }
 }

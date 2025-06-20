@@ -14,7 +14,7 @@ public class User
     public DateTime LastActive { get; set; } = DateTime.UtcNow;
     public required String Gender { get; set; }
     public string? Introduction { get; set; }
-    public string? Intrests { get; set; }
+    public string? Interests { get; set; }
     public string? LookingFor { get; set; }
     public required String City { get; set; }
     public required string Country { get; set; }

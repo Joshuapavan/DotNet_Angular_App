@@ -1,11 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { MemberService } from '../../../_services/member';
+import { ActivatedRoute } from '@angular/router';
+import { Member } from '../../../_models/member';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { DatePipe } from '@angular/common';
+import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 
 @Component({
   selector: 'app-member-detail',
-  imports: [],
+  imports: [TabsModule, DatePipe, GalleryModule],
   templateUrl: './member-detail.html',
-  styleUrl: './member-detail.css'
+  styleUrl: './member-detail.css',
 })
-export class MemberDetail {
+export class MemberDetail implements OnInit {
+  private memberService = inject(MemberService);
+  private route = inject(ActivatedRoute);
+  member?: Member;
 
+  images: GalleryItem[] = [];
+
+  ngOnInit(): void {
+    this.loadMember();
+  }
+
+  loadMember() {
+    const username = this.route.snapshot.paramMap.get('username');
+    if (!username) return;
+
+    this.memberService.getMembersByUserName(username).subscribe({
+      next: (member) => {
+        this.member = member;
+        member.photos.map((photo) => {
+          this.images.push(new ImageItem({ src: photo.url, thumb: photo.url }));
+        });
+      },
+    });
+  }
 }
