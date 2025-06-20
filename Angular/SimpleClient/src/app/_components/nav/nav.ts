@@ -4,6 +4,7 @@ import { Account } from '../../_services/account';
 import { NgIf } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -13,19 +14,20 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class Nav {
   accountService = inject(Account);
-
   private router = inject(Router);
+  private toastr = inject(ToastrService);
 
   loggedIn = false;
   model: any = {};
 
   login() {
     this.accountService.login(this.model).subscribe({
-      next: _ => {
-        this.router.navigateByUrl("/members")
+      next: (user) => {
+        this.toastr.success('Welcome back, ' + user.username);
+        this.router.navigateByUrl('/members');
       },
       error: (error) => {
-        console.log(error);
+        this.toastr.error(error.error);
         this.loggedIn = false;
       },
     });
@@ -33,6 +35,6 @@ export class Nav {
 
   logout() {
     this.accountService.logout();
-    this.router.navigateByUrl("/")
+    this.router.navigateByUrl('/');
   }
 }
