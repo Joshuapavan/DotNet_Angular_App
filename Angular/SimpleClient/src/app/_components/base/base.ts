@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Nav } from '../nav/nav';
 import { Account } from '../../_services/account';
+import { Modal } from '../modals/modal/modal';
 
 @Component({
   selector: 'app-base',
-  imports: [RouterOutlet, Nav],
+  imports: [RouterOutlet, Nav, Modal],
   templateUrl: './base.html',
   styleUrl: './base.css',
 })
