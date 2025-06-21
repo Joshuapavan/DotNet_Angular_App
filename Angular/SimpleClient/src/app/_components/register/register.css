@@ -1,0 +1,9 @@
+.form-wrapper {
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff;
+}
+
+.container {
+  height: 100vh;
+}
