@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f5f5f5;
+  /* Or your desired color */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 .tab-panel {
   border: 1px solid #ddd;
   padding: 10px;

@@ -3,6 +3,7 @@ import {
   HostListener,
   inject,
   OnInit,
+  signal,
   ViewChild,
 } from '@angular/core';
 import { Member } from '../../../_models/member';
@@ -24,12 +25,15 @@ export class MemberEdit implements OnInit {
   private accountService = inject(Account);
   private memberService = inject(MemberService);
   private toastr = inject(ToastrService);
+
   @ViewChild('editForm') editForm?: NgForm;
   @HostListener('window:beforeunload', ['$event']) notify($event: any) {
     if (this.editForm?.dirty) {
       $event.returnValue = true;
     }
   }
+
+  isAlertDissmissed = signal<boolean>(false);
 
   ngOnInit(): void {
     this.loadMember();
@@ -45,11 +49,14 @@ export class MemberEdit implements OnInit {
 
   updateMember() {
     this.memberService.updateMember(this.editForm?.value).subscribe({
-      next: _ => {
+      next: (_) => {
         this.toastr.success('Profile updated successfully.');
         this.editForm?.reset(this.member);
-      }
-    })
+      },
+    });
+  }
 
+  closeAlert() {
+    this.isAlertDissmissed.set(true);
   }
 }
