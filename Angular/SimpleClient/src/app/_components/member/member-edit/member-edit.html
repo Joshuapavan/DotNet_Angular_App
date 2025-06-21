@@ -14,7 +14,7 @@
     }
   </div>
   <div class="col-4">
-    <div class="card">
+    <div class="card shadow">
       <img
         class="card-img img-thumbnail"
         src="{{member.photoUrl || './assets/user.png' }}"
@@ -43,7 +43,7 @@
       </div>
     </div>
   </div>
-  <div class="col-8">
+  <div class="col-8 shadow">
     <tabset class="member-tabset">
       <tab heading="About {{member.knownAs}}">
         <form id="editForm" #editForm="ngForm" (submit)="updateMember()">
