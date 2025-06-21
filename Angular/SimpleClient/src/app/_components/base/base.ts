@@ -3,10 +3,11 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Nav } from '../nav/nav';
 import { Account } from '../../_services/account';
 import { Modal } from '../modals/modal/modal';
+import { NgxSpinnerComponent } from 'ngx-spinner';
 
 @Component({
   selector: 'app-base',
-  imports: [RouterOutlet, Nav, Modal],
+  imports: [RouterOutlet, Nav, Modal, NgxSpinnerComponent],
   templateUrl: './base.html',
   styleUrl: './base.css',
 })

@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Account } from './_services/account';
-import { Base } from "./_components/base/base";
+import { Base } from './_components/base/base';
+import { NgxSpinnerComponent } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
-  imports: [Base],
+  imports: [Base, NgxSpinnerComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
