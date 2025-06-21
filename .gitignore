@@ -1,3 +1,8 @@
 DotNet/SimpleAPI/.vscode
 DotNet/SimpleAPI/bin/
-DotNet/SimpleAPI/obj/*
+DotNet/SimpleAPI/obj/
+
+DotNet/SimpleAPI/DatingApp.db-shm
+DotNet/SimpleAPI/DatingApp.db-wal
+DotNet/SimpleAPI/bin/Debug/
+DotNet/SimpleAPI/appsettings.json
