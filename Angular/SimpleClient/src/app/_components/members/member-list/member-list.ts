@@ -8,19 +8,16 @@ import { MemberCard } from '../member-card/member-card';
   standalone: true, // use standalone if applicable
   templateUrl: './member-list.html',
   styleUrls: ['./member-list.css'],
-  imports: [MemberCard]
+  imports: [MemberCard],
 })
 export class MemberList implements OnInit {
-  private memberService = inject(MemberService);
-  membersList: Member[] = [];
+  memberService = inject(MemberService);
 
   ngOnInit(): void {
-    this.loadMembers();
+    if (this.memberService.members().length === 0) this.loadMembers();
   }
 
   loadMembers() {
-    this.memberService.getMembers().subscribe({
-      next: (members) => (this.membersList = members),
-    });
+    this.memberService.getMembers();
   }
 }
