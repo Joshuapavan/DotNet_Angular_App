@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Account } from '../../_services/account';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,8 @@ export class Login {
 
   validationErrors: Array<String> = [];
 
+  showPassword = signal<boolean>(false);
+
   loggedIn = false;
   model: any = {};
 
@@ -34,6 +36,10 @@ export class Login {
         this.loggedIn = false;
       },
     });
+  }
+
+  togglePasswordVisibility(){
+    this.showPassword.set(!this.showPassword());
   }
 
   cancel() {}

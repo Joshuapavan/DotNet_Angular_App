@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Account } from '../../_services/account';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +18,8 @@ export class Register {
   cancelRegister = output<boolean>();
   validationErrors: Array<String> = [];
 
+  showPassword = signal<boolean>(false);
+
   model: any = {};
 
   register() {
@@ -33,6 +35,10 @@ export class Register {
         }
       },
     });
+  }
+  
+  togglePasswordVisibility(){
+    this.showPassword.set(!this.showPassword())
   }
 
   cancel() {

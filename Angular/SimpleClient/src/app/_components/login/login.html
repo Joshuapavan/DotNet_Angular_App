@@ -28,13 +28,16 @@
 
       <div class="mb-3 form-floating">
         <input
-          type="password"
+          [type]="showPassword() ? 'text' : 'password'"
           class="form-control rounded"
           name="password"
           [(ngModel)]="model.password"
           placeholder="Password"
         />
         <label>Password</label>
+        <button type="button" class="btn btn-lg position-absolute top-50 end-0 translate-middle-y me-2" style="z-index: 5; background: none; border: none;" (click)="togglePasswordVisibility()" >
+          <i [attr.class]="showPassword() ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        </button>
       </div>
 
       @if (validationErrors) {
