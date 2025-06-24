@@ -3,12 +3,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleAPI.DTO;
+using SimpleAPI.Entities;
+using SimpleAPI.Extensions;
 using SimpleAPI.Interfaces;
 
 namespace SimpleAPI.Controllers;
 
 [Authorize]
-public class UsersController(IUserRepository userRepository, IMapper mapper) : BaseApiController
+public class UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService) : BaseApiController
 {
 
     [HttpGet]
@@ -38,7 +40,7 @@ public class UsersController(IUserRepository userRepository, IMapper mapper) : B
     [HttpPut]
     public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
     {
-        var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var username = User.GetUserName();
 
         if (username == null) return BadRequest("Invalid Username, Please Login again");
         var user = await userRepository.GetUserByUserNameAsync(username);
@@ -50,6 +52,34 @@ public class UsersController(IUserRepository userRepository, IMapper mapper) : B
 
         return BadRequest("Failed to update the user");
     }
+
+
+    [HttpPost("add-photo")]
+    public async Task<ActionResult<PhotoDto>> addPhoto(IFormFile file)
+    {
+        var username = User.GetUserName();
+        var user = await userRepository.GetUserByUserNameAsync(username);
+
+        var result = await photoService.AddPhotoAsync(file);
+
+        if (result.Error != null) return BadRequest(result.Error.Message);
+        var photo = new Photo
+        {
+            Url = result.SecureUrl.AbsoluteUri,
+            PublicId = result.PublicId
+        };
+        if (user.Photos.Count == 0)
+        {
+            photo.IsMain = true;
+        }
+        user.Photos.Add(photo);
+
+        if (await userRepository.SaveAllAsync()) {
+            return mapper.Map<PhotoDto>(photo);
+        }
+        return BadRequest("Error adding photo");
+    }
+
 
 
 }
