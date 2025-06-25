@@ -103,7 +103,20 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
     }
 
 
-    // [HttpDelete]
+    [HttpDelete("delete-photo/{photoId:int}")]
+    public async Task<ActionResult> DeletePhoto(int photoId)
+    {
+        var user = await userRepository.GetUserByUserNameAsync(User.GetUserName());
+        if (user == null) return BadRequest("Could not find user");
+
+        var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+
+        if (photo == null || photo.IsMain) return BadRequest("Cannot delete this photo");
+
+        await photoService.DeletePhotoAsync(photo.PublicId);
+        if (await userRepository.SaveAllAsync()) return Ok();
+        return BadRequest("Error while deleting the photo");
+    }
 
 
 
