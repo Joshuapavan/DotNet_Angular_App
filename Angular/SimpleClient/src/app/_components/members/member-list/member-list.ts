@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Member } from '../../../_models/member';
-import { MemberService } from '../../../_services/member';
+import { MemberService } from '../../../_services/member.service';
 import { MemberCard } from '../member-card/member-card';
 
 @Component({

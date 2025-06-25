@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MemberService } from '../../../_services/member';
+import { MemberService } from '../../../_services/member.service';
 import { ActivatedRoute } from '@angular/router';
 import { Member } from '../../../_models/member';
 import { TabsModule } from 'ngx-bootstrap/tabs';

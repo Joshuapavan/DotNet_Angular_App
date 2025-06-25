@@ -35,10 +35,6 @@ export class Account {
     );
   }
 
-  setImageAsMain(id: number){
-    return this.http.put(`${this.baseUrl}/users/set-main-photo/${id}`, {})
-  }
-
   setCurrentUser(user: User){
       localStorage.setItem('user', JSON.stringify(user));
       this.currentUser.set(user);

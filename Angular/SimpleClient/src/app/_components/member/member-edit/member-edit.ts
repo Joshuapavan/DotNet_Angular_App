@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Member } from '../../../_models/member';
 import { Account } from '../../../_services/account';
-import { MemberService } from '../../../_services/member';
+import { MemberService } from '../../../_services/member.service';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
