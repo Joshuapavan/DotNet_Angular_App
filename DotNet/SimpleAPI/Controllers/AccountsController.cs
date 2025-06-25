@@ -40,7 +40,9 @@ public class AccountsController(AppDbContext context, ITokenService tokenService
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> LoginUser(LoginDto loginDto)
     {
-        var user = await context.Users.FirstOrDefaultAsync(
+        var user = await context.Users
+        .Include(p => p.Photos)
+        .FirstOrDefaultAsync(
             x => x.UserName.ToLower() == loginDto.Username.ToLower()
         );
 
@@ -60,7 +62,8 @@ public class AccountsController(AppDbContext context, ITokenService tokenService
         return new UserDto
         {
             Username = user.UserName,
-            Token = tokenService.CreateToken(user)
+            Token = tokenService.CreateToken(user),
+            PhotoUrl = user.Photos.FirstOrDefault( x => x.IsMain)?.Url,
         };
     }
 
