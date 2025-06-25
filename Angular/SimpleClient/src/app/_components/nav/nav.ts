@@ -5,7 +5,6 @@ import { NgIf, TitleCasePipe } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
 @Component({
   selector: 'app-nav',
   imports: [FormsModule, BsDropdownModule, RouterLink, RouterLinkActive, TitleCasePipe],
@@ -16,7 +15,7 @@ export class Nav {
   accountService = inject(Account);
   private router = inject(Router);
   private toastr = inject(ToastrService);
-
+  
   loggedIn = false;
   model: any = {};
 

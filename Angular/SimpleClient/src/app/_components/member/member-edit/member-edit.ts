@@ -13,10 +13,11 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { PhotoEditor } from "../../members/photo-editor/photo-editor";
 
 @Component({
   selector: 'app-member-edit',
-  imports: [TabsModule, DatePipe, FormsModule],
+  imports: [TabsModule, DatePipe, FormsModule, PhotoEditor],
   templateUrl: './member-edit.html',
   styleUrl: './member-edit.css',
 })
@@ -58,5 +59,9 @@ export class MemberEdit implements OnInit {
 
   closeAlert() {
     this.isAlertDissmissed.set(true);
+  }
+
+  onMemberChange(event: Member){
+    this.member = event;
   }
 }
