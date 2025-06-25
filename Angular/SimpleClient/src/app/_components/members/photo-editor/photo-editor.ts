@@ -52,4 +52,8 @@ export class PhotoEditor implements OnInit {
       this.memberChange.emit(updatedMember);
     }
   }
+
+  setImageAsMain(){
+    
+  }
 }
