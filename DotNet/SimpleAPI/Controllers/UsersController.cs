@@ -112,12 +112,15 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
         var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
 
         if (photo == null || photo.IsMain) return BadRequest("Cannot delete this photo");
-
-        await photoService.DeletePhotoAsync(photo.PublicId);
+        if (photo.PublicId != null)
+        {
+            var result = await photoService.DeletePhotoAsync(photo.PublicId);
+            if (result.Error != null) return BadRequest(result.Error.Message); 
+        }
+        user.Photos.Remove(photo);
         if (await userRepository.SaveAllAsync()) return Ok();
         return BadRequest("Error while deleting the photo");
     }
-
 
 
 }
