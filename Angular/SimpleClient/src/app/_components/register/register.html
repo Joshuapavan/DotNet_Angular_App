@@ -1,27 +1,33 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="form-wrapper shadow p-4 rounded width-100">
-    <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+    <form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
       <h2 class="text-center text-primary">Register</h2>
       <hr />
       <div class="mb-3 form-floating">
         <input
+          [class.is-invalid]="registerForm.get('username')?.errors && registerForm.get('username')?.touched" 
           type="text"
           class="form-control rounded"
-          name="username"
-          [(ngModel)]="model.username"
+          formControlName="username"
           placeholder="Username"
         />
         <label>Username</label>
-        @if (validationErrors) {
+
+        <!-- Validations -->
+        <div class="ms-1 text-start invalid-feedback">
+          Username is required.
+        </div>
+
+        <!-- @if (validationErrors) {
         <div class="text-center">
           @for (error of validationErrors; track $index) {
           @if(error.toLowerCase().includes("username")){
           <ul>
-            <li class="text-danger">{{error}}</li>
+            <li class="invalid-feedback">{{error}}</li>
           </ul>
           } }
         </div>
-        }
+        } -->
       </div>
 
       <!-- Testing how to receive data from parent to child using [] and input() signal
@@ -36,27 +42,68 @@
 
        <div class="mb-3 form-floating">
         <input
+          [class.is-invalid]="registerForm.get('password')?.errors && registerForm.get('password')?.touched"
           [type]="showPassword() ? 'text' : 'password'"
           class="form-control rounded"
-          name="password"
-          [(ngModel)]="model.password"
+          formControlName="password"
           placeholder="Password"
         />
         <label>Password</label>
-        <button type="button" class="btn btn-lg position-absolute top-50 end-0 translate-middle-y me-2" style="z-index: 5; background: none; border: none;" (click)="togglePasswordVisibility()" >
-          <i [attr.class]="showPassword() ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        <button type="button" class="btn btn-lg position-absolute top-50 end-0 translate-middle-y me-2" style="z-index: 5; background: none; border: none;">
+          <i [attr.class]="showPassword() ? 'fa fa-eye-slash' : 'fa fa-eye'" (click)="togglePasswordVisibility()"></i>
         </button>
+
+        <!-- Validations -->
+
+        <div *ngIf="registerForm.get('password')?.hasError('required')" class="ms-1 text-start invalid-feedback">
+          Please enter a password.
+        </div>
+
+        <div  *ngIf="registerForm.get('password')?.hasError('minlength')" class="ms-1 text-start invalid-feedback">
+          Password must be at least 4 characters.
+        </div>
+
+        <div  *ngIf="registerForm.get('password')?.hasError('maxlength')" class="ms-1 text-start invalid-feedback">
+          Password must be at most 8 characters.
+        </div>
       </div>
-        @if(validationErrors){
+
+
+      <div class="mb-3 form-floating">
+        <input
+          [class.is-invalid]="registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched" 
+          [type]="showConfirmPassword() ? 'text' : 'password'"
+          class="form-control rounded"
+          formControlName="confirmPassword"
+          placeholder="Confirm Password"
+        />
+        <label>Confirm Password</label>
+        <button type="button" class="btn btn-lg position-absolute top-50 end-0 translate-middle-y me-2" style="z-index: 5; background: none; border: none;" >
+          <i [attr.class]="showConfirmPassword() ? 'fa fa-eye-slash' : 'fa fa-eye'" (click)="toggleConfirmPasswordVisibility()"></i>
+        </button>
+
+        <!-- Validations -->
+
+        <div *ngIf="registerForm.get('confirmPassword')?.hasError('required')"  class="ms-1 text-start invalid-feedback">
+          Please enter the Confirm Password.
+        </div>
+
+        <div *ngIf="registerForm.get('confirmPassword')?.hasError('isMatching')" class="ms-1 text-start invalid-feedback">
+          Please enter a password.
+        </div>
+      </div>
+        <!-- @if(validationErrors){
         <div class="text-center">
           @for (error of validationErrors; track $index) { @if
           (error.toLocaleLowerCase().includes("password")) {
           <ul>
-            <li class="text-danger">{{error}}</li>
+            <li class="invalid-feedback">{{error}}</li>
           </ul>
           } }
         </div>
-        }
+        } -->
+
+
       <div class="form-group text-center">
         <button class="btn btn-primary me-2 rounded" type="submit">
           Register
