@@ -35,18 +35,30 @@ export class MemberService {
 
   setImageAsMain(photo: Photo){
     return this.http.put(`${this.baseUrl}/users/set-main-photo/${photo.id}`, {} )
-    // .pipe(
-    //   tap(() => {
-    //   })
-    // )
+    .pipe(
+      tap(() => { 
+        this.members.update(members => members.map(m => {
+          if(m.photos.includes(photo)){
+            m.photoUrl = photo.url;
+          }
+          return m;
+        }))
+      })
+    )
   }
 
   deletePhoto(photo: Photo){
     return this.http.delete(`${this.baseUrl}/users/delete-photo/${photo.id}`)
-    // .pipe(
-    //   tap(() => {
-    //   })
-    // )
+    .pipe(
+      tap(() => {
+        this.members.update(members => members.map(m => {
+          if(m.photos.includes(photo)){
+            m.photos = m.photos.filter(ph => ph.id !== photo.id)
+          }
+          return m;
+        }))
+      })
+    )
   }
 
 

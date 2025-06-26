@@ -59,15 +59,29 @@ export class PhotoEditor implements OnInit {
   setImageAsMain(photo: Photo){
     this.memberService.setImageAsMain(photo).subscribe({
       next: _ => {
+        const user = this.accountService.currentUser();
+        if(user) {
+           user.photoUrl = photo.url;
+           this.accountService.setCurrentUser(user);
+        }
+        const updatedMember = {...this.member()}
+        updatedMember.photoUrl = photo.url;
+        updatedMember.photos.forEach(p => {
+          if(p.isMain) p.isMain = false;
+          if(p.id === photo.id) p.isMain = true
+        })
 
+        this.memberChange.emit(updatedMember);
       }
     })
   }
 
   deletePhoto(photo: Photo){
     this.memberService.deletePhoto(photo).subscribe({
-      next: _ => {
-        
+      next: _ => {  
+        const updatedMember = {...this.member()};
+        updatedMember.photos = updatedMember.photos.filter(ph => ph.id !== photo.id)
+        this.memberChange.emit(updatedMember);
       }
     })
   }
