@@ -1,0 +1,36 @@
+<div class="mb-3 form-floating">
+    <input
+        [class.is-invalid]="control.touched && control.invalid"
+        [type]="(type() === 'password' && showPassword()) ? 'password' : 'text'"
+        class="form-control rounded"
+        [formControl]="control"
+        placeholder="{{label()}}"
+    />
+    <label>{{label()}}</label>
+    @if((type() === 'password')) {
+        <button type="button" class="btn btn-lg position-absolute top-50 end-0 translate-middle-y me-2" style="z-index: 5; background: none; border: none;">
+            <i [attr.class]="(showPassword()) ? 'fa fa-eye-slash' : 'fa fa-eye'" (click)="togglePasswordVisibility()"></i>
+        </button>
+    }
+
+    <!-- Validations -->
+
+    <div *ngIf="control.hasError('required')" 
+     class="ms-1 text-start invalid-feedback">
+        Please enter a {{label()}}.
+    </div>
+
+    <div  *ngIf="control.hasError('minlength')" 
+     class="ms-1 text-start invalid-feedback">
+        {{label()}} must be at least {{control.errors?.["minlength"].requiredLength}} characters.
+    </div>
+
+    <div  *ngIf="control.hasError('maxlength')"
+     class="ms-1 text-start invalid-feedback">
+        {{label()}} must be at most {{control.errors?.['maxlength'].requiredLength}} characters.
+    </div>
+
+    <div *ngIf="control.hasError('isMatching')" class="ms-1 text-start invalid-feedback">
+        Passwords don't match.
+    </div>
+</div>
