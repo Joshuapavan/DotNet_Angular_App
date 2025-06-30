@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleAPI.Data;
@@ -9,32 +10,29 @@ using SimpleAPI.Interfaces;
 
 namespace SimpleAPI.Controllers;
 
-public class AccountsController(AppDbContext context, ITokenService tokenService) : BaseApiController
+public class AccountsController(AppDbContext context, ITokenService tokenService, IMapper mapper) : BaseApiController
 {
 
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> RegisterUser(RegisterDto registerDto)
     {
-        if (await UserExists(registerDto)) return BadRequest("User Already Exists");
+        if (await UserExists(registerDto.Username)) return BadRequest("UserName Already Exists");
 
-        return Ok();
-        // using var hmac = new HMACSHA512();
+        using var hmac = new HMACSHA512();
+        var user = mapper.Map<User>(registerDto);
+        user.UserName = registerDto.Username.ToLower();
+        user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+        user.PasswordSalt = hmac.Key;
 
-        // var user = new User
-        // {
-        //     UserName = registerDto.Username,
-        //     PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-        //     PasswordSalt = hmac.Key
-        // };
+        context.Users.Add(user);
+        await context.SaveChangesAsync();
 
-        // context.Users.Add(user);
-        // await context.SaveChangesAsync();
-
-        // return new UserDto
-        // {
-        //     Username = user.UserName,
-        //     Token = tokenService.CreateToken(user)
-        // };
+        return new UserDto
+        {
+            Username = user.UserName,
+            Token = tokenService.CreateToken(user),
+            KnownAs = user.KnownAs
+        };
     }
 
     [HttpPost("login")]
@@ -63,13 +61,14 @@ public class AccountsController(AppDbContext context, ITokenService tokenService
         {
             Username = user.UserName,
             Token = tokenService.CreateToken(user),
+            KnownAs = user.KnownAs,
             PhotoUrl = user.Photos.FirstOrDefault( x => x.IsMain)?.Url,
         };
     }
 
 
-    private async Task<bool> UserExists(RegisterDto registerDto)
+    private async Task<bool> UserExists(string username)
     {
-        return await context.Users.AnyAsync(x => x.UserName.ToLower() == registerDto.Username.ToLower());
+        return await context.Users.AnyAsync(x => x.UserName.ToLower() == username.ToLower());
     }
 }

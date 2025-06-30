@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using AutoMapper;
 using SimpleAPI.DTO;
 using SimpleAPI.Entities;
@@ -12,16 +11,19 @@ public class AutomapperProfiles : Profile
     {
         // Creating an mapper for user and members DTO
         CreateMap<User, MemberDto>()
-        // Serializing age
-        .ForMember(destination => destination.Age, options => options
-        .MapFrom(source => source.DateOfBirth.CalculateAge()))
-        // Serializig photo url in the memebers DTO
-        .ForMember(destination => destination.PhotoUrl, option => option
-        .MapFrom(source => source.Photos.FirstOrDefault(x => x.IsMain)!.Url));
+            // Serializing age
+            .ForMember(destination => destination.Age, options => options
+            .MapFrom(source => source.DateOfBirth.CalculateAge()))
+            // Serializig photo url in the memebers DTO
+            .ForMember(destination => destination.PhotoUrl, option => option
+            .MapFrom(source => source.Photos.FirstOrDefault(x => x.IsMain)!.Url));
 
 
         CreateMap<Photo, PhotoDto>();
         CreateMap<MemberUpdateDto, User>();
+        CreateMap<RegisterDto, User>();
+        CreateMap<string, DateOnly>().ConvertUsing(s => DateOnly.Parse(s));
+            
     }
 
 }
