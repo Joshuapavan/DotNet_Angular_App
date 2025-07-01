@@ -5,6 +5,8 @@ import { Member } from '../../../_models/member';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatePipe } from '@angular/common';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+import {TimeAgoPipe} from 'time-ago-pipe';
+import { Photo } from '../../../_models/photo';
 
 @Component({
   selector: 'app-member-detail',
@@ -30,7 +32,7 @@ export class MemberDetail implements OnInit {
     this.memberService.getMembersByUserName(username).subscribe({
       next: (member) => {
         this.member = member;
-        member.photos.map((photo) => {
+        member.photos.map((photo: Photo) => {
           this.images.push(new ImageItem({ src: photo.url, thumb: photo.url }));
         });
       },
