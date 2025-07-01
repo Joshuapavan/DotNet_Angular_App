@@ -27,7 +27,6 @@
     "ngx-spinner": "^19.0.0",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
-    "time-ago-pipe": "^1.3.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
