@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleAPI.DTO;
 using SimpleAPI.Entities;
 using SimpleAPI.Extensions;
+using SimpleAPI.Helpers;
 using SimpleAPI.Interfaces;
 
 namespace SimpleAPI.Controllers;
@@ -14,9 +15,11 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
 {
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAllUsers()
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetAllUsers([FromQuery]UserParams userParams)
     {
-        var users = await userRepository.GetMembersAsync();
+        userParams.CurrentUsername = User.GetUserName();
+        var users = await userRepository.GetMembersAsync(userParams);
+        Response.AddPaginationHeader(users);
         return Ok(users);
     }
 

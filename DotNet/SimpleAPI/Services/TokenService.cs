@@ -20,7 +20,8 @@ public class TokenService(IConfiguration config) : ITokenService
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, user.UserName)
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Name, user.UserName),
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor

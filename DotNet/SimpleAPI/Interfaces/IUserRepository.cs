@@ -1,5 +1,6 @@
 using SimpleAPI.DTO;
 using SimpleAPI.Entities;
+using SimpleAPI.Helpers;
 
 namespace SimpleAPI.Interfaces;
 
@@ -10,7 +11,7 @@ public interface IUserRepository
     Task<IEnumerable<User>> GetUsersAsync();
     Task<User?> GetUserByIdAsync(int id);
     Task<User?> GetUserByUserNameAsync(string username);
-    Task<IEnumerable<MemberDto>> GetMembersAsync();
+    Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
     Task<MemberDto?> GetMemberByUserNameAsync(string username);
     Task<MemberDto?> GetMemberByIdAsync(int id);
 }
