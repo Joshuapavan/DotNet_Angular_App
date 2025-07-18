@@ -5,7 +5,6 @@ import { Member } from '../../../_models/member';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatePipe } from '@angular/common';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
-import {TimeAgoPipe} from 'time-ago-pipe';
 import { Photo } from '../../../_models/photo';
 
 @Component({
