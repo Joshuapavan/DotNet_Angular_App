@@ -28,4 +28,8 @@ public class User
     //     return DateOfBirth.CalculateAge();
     // }
 
+    // Many to many relationships for likes USer Like is the join table.
+    public List<UserLike> LikedByUsers { get; set; } = [];
+    public List<UserLike> LikedUsers { get; set; } = [];
+
 }
